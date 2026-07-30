@@ -59,21 +59,25 @@
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--color-bg-principal); color: var(--color-text-main); }
+  body { margin: 0; background: var(--color-bg-principal); color: var(--color-text-main); overflow-x: hidden; }
   a { color: var(--color-link); text-decoration: none; transition: color .2s ease; }
   a:hover { color: var(--color-link-hover); }
   ::selection { background: var(--color-accent); color: #ffffff; }
   img { display: block; max-width: 100%; }
+  section[id] { scroll-margin-top: 80px; }
 
   /* Scrollbar */
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-track { background: var(--color-bg-principal); }
   ::-webkit-scrollbar-thumb { background: var(--color-primary-hover); border-radius: 5px; }
-  /* HEADER STICKY GLASSMORPHISM */
+  /* HEADER FIXED GLASSMORPHISM */
   .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 50;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
     background: rgba(8, 28, 21, 0.75);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
@@ -231,7 +235,7 @@
 </style>
 </head>
 <body>
-<div id="top" style="font-family: 'Manrope', system-ui, sans-serif; color: var(--color-text-main); background: var(--color-bg-principal); overflow-x: hidden;">
+<div id="top" style="font-family: 'Manrope', system-ui, sans-serif; color: var(--color-text-main); background: var(--color-bg-principal);">
 
   <!-- HEADER -->
   <header class="site-header">
@@ -249,7 +253,7 @@
   </header>
 
   <!-- HERO -->
-  <section style="position: relative; background: var(--gradient-secondary);">
+  <section style="position: relative; background: var(--gradient-secondary); padding-top: 72px;">
     <div class="hero-grid" style="max-width: 1180px; margin: 0 auto; padding: 76px 28px 92px; display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center;">
       <!-- left -->
       <div>
