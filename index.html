@@ -227,10 +227,154 @@
     .h2-big { font-size: 27px !important; }
     .cta-big { font-size: 30px !important; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    * { animation: none !important; }
-    .hv-card, .hv-primary, .hv-lift { transition: none !important; }
+  /* MOBILE MENU BUTTON & DRAWER STYLING */
+  .mobile-menu-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: var(--color-bg-elevado);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .mobile-menu-btn:hover {
+    background: var(--color-bg-cards);
+    border-color: var(--color-accent);
+  }
+
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1050;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .mobile-menu-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(320px, 85vw);
+    height: 100vh;
+    height: 100dvh;
+    background: #081C15;
+    border-left: 1px solid var(--color-border);
+    z-index: 1100;
+    transform: translateX(100%);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+  }
+  .mobile-drawer.is-active {
+    transform: translateX(0);
+  }
+
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .drawer-logo {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--color-text-main);
+  }
+  .drawer-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--color-bg-elevado);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .drawer-close-btn:hover {
+    background: var(--color-bg-cards);
+    border-color: var(--color-accent);
+  }
+
+  .drawer-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+    padding-top: 24px;
+  }
+  .drawer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .drawer-link {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--color-text-main);
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: transparent;
+    transition: background 0.2s, color 0.2s;
+  }
+  .drawer-link:hover, .drawer-link:focus {
+    background: var(--color-bg-cards);
+    color: var(--color-link);
+  }
+
+  .drawer-footer {
+    padding-top: 20px;
+    border-top: 1px solid var(--color-divider);
+  }
+  .drawer-wa-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 14px;
+    background: var(--color-primary-hover) !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: var(--shadow-button);
+  }
+
+  body.menu-open {
+    overflow: hidden !important;
+  }
+
+  /* MEDIA QUERY MOBILE (<= 768px) */
+  @media (max-width: 768px) {
+    .desktop-nav {
+      display: none !important;
+    }
+    .mobile-menu-btn {
+      display: flex !important;
+    }
+    .header-container {
+      padding: 12px 20px !important;
+      height: 64px;
+    }
   }
 </style>
 </head>
@@ -239,9 +383,11 @@
 
   <!-- HEADER -->
   <header class="site-header">
-    <div style="max-width: 1180px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+    <div class="header-container" style="max-width: 1180px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
       <a href="#top" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -.02em; color: var(--color-text-main);">Kawan Teles</a>
-      <nav style="display: flex; align-items: center; gap: 26px;">
+      
+      <!-- DESKTOP NAV -->
+      <nav class="desktop-nav" style="display: flex; align-items: center; gap: 26px;">
         <a href="#servicos" style="font-weight: 600; font-size: 15px; color: var(--color-text-secondary);">Serviços</a>
         <a href="#projetos" style="font-weight: 600; font-size: 15px; color: var(--color-text-secondary);">Projetos</a>
         <a href="https://wa.me/5582998343617?text=Oi!%20Vi%20o%20seu%20portf%C3%B3lio%20e%20queria%20saber%20mais." target="_blank" rel="noopener" class="hv-wa" style="display: inline-flex; align-items: center; gap: 9px; background: var(--color-primary-hover); color: #fff; font-weight: 700; font-size: 15px; padding: 11px 20px; border-radius: 999px; box-shadow: var(--shadow-button); transition: background .2s;">
@@ -249,8 +395,46 @@
           Chamar no WhatsApp
         </a>
       </nav>
+
+      <!-- MOBILE MENU BUTTON -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="6" x2="20" y2="6"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="18" x2="20" y2="18"></line>
+        </svg>
+      </button>
     </div>
   </header>
+
+  <!-- MOBILE OVERLAY & DRAWER -->
+  <div class="mobile-menu-overlay" id="menuOverlay"></div>
+  <div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Menu de Navegação">
+    <div class="drawer-header">
+      <span class="drawer-logo">Kawan Teles</span>
+      <button class="drawer-close-btn" id="closeDrawerBtn" aria-label="Fechar menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="drawer-body">
+      <nav class="drawer-nav">
+        <a href="#top" class="drawer-link">Início</a>
+        <a href="#servicos" class="drawer-link">Serviços</a>
+        <a href="#projetos" class="drawer-link">Projetos</a>
+        <a href="#quem-sou" class="drawer-link">Sobre mim</a>
+        <a href="#contato" class="drawer-link">Contato</a>
+      </nav>
+      <div class="drawer-footer">
+        <a href="https://wa.me/5582998343617?text=Oi!%20Vi%20o%20seu%20portf%C3%B3lio%20e%20queria%20saber%20mais." target="_blank" rel="noopener" class="hv-primary drawer-wa-btn">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.85 9.85 0 001.599 5.283l-1 3.652 3.891-1.634zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section style="position: relative; background: var(--gradient-secondary); padding-top: 72px;">
@@ -450,7 +634,7 @@
   </section>
 
   <!-- QUEM SOU -->
-  <section style="background: var(--color-bg-principal); border-top: 1px solid var(--color-divider);">
+  <section id="quem-sou" style="background: var(--color-bg-principal); border-top: 1px solid var(--color-divider);">
     <div class="about-grid sec-pad" style="max-width: 1180px; margin: 0 auto; padding: 88px 28px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: start;">
       <div>
         <span style="font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-link);">Quem sou</span>
@@ -471,7 +655,7 @@
   </section>
 
   <!-- CTA FINAL -->
-  <section style="background: var(--gradient-primary); color: #fff;">
+  <section id="contato" style="background: var(--gradient-primary); color: #fff;">
     <div style="max-width: 760px; margin: 0 auto; padding: 92px 28px; text-align: center;">
       <h2 class="cta-big" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 42px; line-height: 1.08; letter-spacing: -.02em; margin: 0; color: #ffffff;">Vamos conversar sobre como usar tecnologia pra vender mais sem mais esforço?</h2>
       <p style="font-size: 18px; line-height: 1.6; color: var(--color-text-secondary); margin: 20px 0 0;">Me chama no WhatsApp. A conversa é rápida, sem compromisso, e você já sai com um caminho claro do que dá pra melhorar.</p>
@@ -551,8 +735,42 @@
           ticking = true;
         }
       }, { passive: true });
-      updateHeaderState();
+    // Mobile Drawer Menu Functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const drawerLinks = document.querySelectorAll('.drawer-link, .drawer-wa-btn');
+
+    function openMenu() {
+      if (!mobileDrawer || !menuOverlay) return;
+      mobileDrawer.classList.add('is-active');
+      menuOverlay.classList.add('is-active');
+      document.body.classList.add('menu-open');
+      if (mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded', 'true');
     }
+
+    function closeMenu() {
+      if (!mobileDrawer || !menuOverlay) return;
+      mobileDrawer.classList.remove('is-active');
+      menuOverlay.classList.remove('is-active');
+      document.body.classList.remove('menu-open');
+      if (mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+    if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', closeMenu);
+    if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileDrawer && mobileDrawer.classList.contains('is-active')) {
+        closeMenu();
+      }
+    });
   });
 </script>
 </body>
