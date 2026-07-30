@@ -698,6 +698,7 @@
 <!-- ANIMAÇÃO DE ENTRADA AO SCROLL -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // 1. Scroll Reveal Observer
     const observerOptions = {
       root: null,
       rootMargin: '0px',
@@ -717,7 +718,14 @@
       revealObserver.observe(el);
     });
 
-    // Header scroll behavior (sticky glassmorphism & shadow toggle)
+    // Fallback: Guarantee reveal-on-scroll elements are visible even if observer is delayed
+    setTimeout(() => {
+      document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+        el.classList.add('is-visible');
+      });
+    }, 1000);
+
+    // 2. Header Scroll Behavior (Sticky/Fixed Header Toggle)
     const siteHeader = document.querySelector('.site-header');
     if (siteHeader) {
       let ticking = false;
@@ -729,13 +737,18 @@
         }
         ticking = false;
       };
+
       window.addEventListener('scroll', () => {
         if (!ticking) {
           window.requestAnimationFrame(updateHeaderState);
           ticking = true;
         }
       }, { passive: true });
-    // Mobile Drawer Menu Functionality
+
+      updateHeaderState();
+    }
+
+    // 3. Mobile Drawer Menu Functionality
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const closeDrawerBtn = document.getElementById('closeDrawerBtn');
     const mobileDrawer = document.getElementById('mobileDrawer');
